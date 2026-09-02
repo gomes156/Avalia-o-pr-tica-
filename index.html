@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Apoio ao Idoso - Cuidados e Rotina</title>
+    
+    <style>
+        /* Cores Acessíveis: Paleta Rosa e Azul de Alto Contraste */
+        :root {
+            --azul-escuro: #003366;    /* Texto principal e títulos */
+            --azul-medio: #1A5F7A;     /* Cabeçalho e botões principais */
+            --rosa-escuro: #850E35;    /* Destaques importantes e alertas */
+            --rosa-medio: #EE6983;     /* Detalhes visuais e bordas */
+            --rosa-claro: #FFF5E4;     /* Fundo de seções secundárias */
+            --fundo-geral: #FFFFFF;    /* Fundo da página */
+            --cor-texto: #111111;      /* Quase preto para máxima leitura */
+            --cor-foco: #E21818;       /* Borda de foco vermelha para navegação por teclado */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Tamanho de fonte padrão inicial expandido para idosos */
+        html {
+            font-size: 20px; 
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.5px;
+            color: var(--cor-texto);
+            background-color: var(--fundo-geral);
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        /* Barra de Acessibilidade Superior */
+        .barra-acessibilidade {
+            background-color: var(--rosa-claro);
+            border-bottom: 3px solid var(--rosa-medio);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .painel-botoes {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .texto-acessibilidade {
+            font-weight: bold;
+            color: var(--azul-escuro);
+        }
+
+        .botoes-grupo {
+            display: flex;
+            gap: 10px;
+        }
+
+        .painel-botoes button {
+            background-color: var(--azul-escuro);
+            color: #FFFFFF;
+            border: 2px solid var(--azul-escuro);
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .painel-botoes button:hover {
+            background-color: var(--azul-medio);
+            border-color: var(--azul-medio);
+        }
+
+        /* Link de Salto */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--cor-foco);
+            color: white;
+            padding: 15px;
+            z-index: 1100;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Foco Universal Visível */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 5px solid var(--cor-foco) !important;
+            outline-offset: 3px;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--azul-escuro);
+            color: white;
+            border-bottom: 5px solid var(--rosa-medio);
+            padding: 25px 0;
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        header nav a {
+            color: #FFFFFF;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 8px 0;
+            display: inline-block;
+        }
+
+        header nav a:hover {
+            color: var(--rosa-claro);
+        }
+
+        /* Seções e Conteúdo */
+        section {
+            padding: 60px 0;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .bg-rosa-suave {
+            background-color: var(--rosa-claro);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--azul-escuro);
+            border-left: 8px solid var(--rosa-medio);
+            padding-left: 15px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--rosa-escuro);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Lista de Dicas e Cuidados */
+        .lista-cuidados {
+            margin-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        .lista-cuidados li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Bloco de Alerta / Atenção */
+        .alerta-caixa {
+            background-color: #FFFFFF;
+            border: 4px solid var(--rosa-escuro);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        .alerta-caixa h4 {
+            color: var(--rosa-escuro);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Grid de Cartões para Rotinas */
+        .grid-rotinas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card-rotina {
+            background: #FFFFFF;
+            padding: 30px;
+            border: 4px solid var(--azul-medio);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Formulário de Ajuda Emergencial / Contato */
+        .form-ajuda {
+            max-width: 650px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--azul-escuro);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            border: 3px solid var(--azul-escuro);
+            border-radius: 8px;
+            color: #000000;
+            background-color: #FFFFFF;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .btn-enviar {
+            background-color: var(--rosa-escuro);
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: 3px solid var(--rosa-escuro);
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #5A0A24;
+            border-color: #5A0A24;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--azul-escuro);
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.1rem;
+            border-top: 5px solid var(--rosa-medio);
+        }
+
+        footer p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- Barra de Acessibilidade Superior Fixa -->
+    <div class="barra-acessibilidade">
+        <div class="container painel-botoes">
+            <span class="texto-acessibilidade" id="rotulo-acessibilidade">Ferramentas de Leitura:</span>
+            <div class="botoes-grupo" aria-labelledby="rotulo-acessibilidade">
+                <button onclick="alterarFonte(2)" aria-label="Aumentar o tamanho da letra do site">Aumentar Letra (+)</button>
+                <button onclick="alterarFonte(-2)" aria-label="Diminuir o tamanho da letra do site">Diminuir Letra (-)</button>
+            </div>
+        </div>
+    </div>
+
+    <header role="banner">
+        <div class="container">
+            <h1>Manual do Bem-Estar na Terceira Idade</h1>
+            <nav aria-label="Menu de navegação principal">
+                <ul>
+                    <li><a href="#cuidados">Cuidados Importantes</a></li>
+                    <li><a href="#rotina">Rotina Diária Saudável</a></li>
+                    <li><a href="#seguranca">Segurança em Casa</a></li>
+                    <li><a href="#ajuda">Pedir Ajuda</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="conteudo-principal" role="main">
+        
+        <!-- SEÇÃO: CUIDADOS IMPORTANTES -->
+        <section id="cuidados" aria-labelledby="titulo-cuidados">
+            <div class="container">
+                <h2 id="titulo-cuidados">Cuidados Fundamentais com a Saúde</h2>
+                <p>Manter a saúde protegida exige atenção diária a pequenos hábitos. Abaixo, listamos os cuidados essenciais recomendados por médicos e especialistas para viver melhor:</p>
+                
+                <ul class="lista-cuidados">
+                    <li><strong>Tomar água regularmente:</strong> Mesmo sem sentir sede, beba pequenos goles de água ao longo do dia para evitar desidratação.</li>
+                    <li><strong>Medicamentos na hora certa:</strong> Use caixas organizadoras divididas por dias da semana e horários (manhã, tarde e noite) para nunca esquecer uma dose.</li>
+                    <li><strong>Consultas de rotina:</strong> Visite seu médico de confiança regularmente e anote todas as suas dúvidas em um papel antes de sair de casa.</li>
+                    <li><strong>Alimentação colorida:</strong> Priorize alimentos frescos, como frutas, legumes, verduras e carnes magras. Evite excesso de sal e açúcar.</li>
+                </ul>
+
