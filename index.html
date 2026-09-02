@@ -4,13 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal de Ajuda</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #111111;
+      --button-bg: #0056b3;
+      --button-text: #ffffff;
+      --border-color: #cccccc;
+      --tamanho-fonte-base: 20px;
+    }
+
+    /* Estilo do Tema Escuro / Alto Contraste */
+    body.alto-contraste {
+      --bg-color: #000000;
+      --card-bg: #1a1a1a;
+      --text-color: #ffff00;
+      --button-bg: #ffff00;
+      --button-text: #000000;
+      --border-color: #ffff00;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      font-size: var(--tamanho-fonte-base);
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--border-color);
+    }
+
+    .acessibilidade button {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: 2px solid var(--text-color);
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 12px 18px;
+      margin-left: 6px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .acessibilidade button:focus {
+      outline: 4px solid var(--text-color);
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      padding: 24px;
+      margin-top: 24px;
+      border-radius: 12px;
+    }
+  </style>
 </head>
 <body>
 
   <header>
     <h1>Portal de Ajuda</h1>
     
+    <!-- Barra de Acessibilidade -->
     <div class="acessibilidade" aria-label="Controles de Acessibilidade">
       <button onclick="alterarTamanhoFonte(2)" aria-label="Aumentar tamanho do texto">A+</button>
       <button onclick="alterarTamanhoFonte(-2)" aria-label="Diminuir tamanho do texto">A-</button>
@@ -32,6 +98,33 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    let tamanhoFonteAtual = 20;
+
+    function alterarTamanhoFonte(variacao) {
+      if (tamanhoFonteAtual + variacao >= 16 && tamanhoFonteAtual + variacao <= 36) {
+        tamanhoFonteAtual += variacao;
+        document.documentElement.style.setProperty('--tamanho-fonte-base', tamanhoFonteAtual + 'px');
+      }
+    }
+
+    function resetarTamanhoFonte() {
+      tamanhoFonteAtual = 20;
+      document.documentElement.style.setProperty('--tamanho-fonte-base', '20px');
+    }
+
+    function alternarTema() {
+      const body = document.body;
+      const btnTema = document.getElementById('btn-tema');
+
+      body.classList.toggle('alto-contraste');
+
+      if (body.classList.contains('alto-contraste')) {
+        btnTema.textContent = 'Modo Normal';
+      } else {
+        btnTema.textContent = 'Alto Contraste';
+      }
+    }
+  </script>
 </body>
 </html>
